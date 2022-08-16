@@ -1,0 +1,66 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"postgresql-persistent:1-7"},"fieldPath":"spec.template.spec.containers[?(@.name==\"postgresql-persistent\")].image"}]'
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: postgresql-persistent
+      app.kubernetes.io/component: postgresql-persistent
+      app.kubernetes.io/instance: postgresql-persistent
+    name: postgresql-persistent
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: postgresql-persistent
+    strategy: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deployment: postgresql-persistent
+      spec:
+        containers:
+        - env:
+          - name: POSTGRESQL_DATABASE
+            value: persistentdb
+          - name: POSTGRESQL_PASSWORD
+            value: redhat123
+          - name: POSTGRESQL_USER
+            value: redhat
+          image: ' '
+          name: postgresql-persistent
+          ports:
+          - containerPort: 5432
+            protocol: TCP
+          resources: {}
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: postgresql-persistent
+      app.kubernetes.io/component: postgresql-persistent
+      app.kubernetes.io/instance: postgresql-persistent
+    name: postgresql-persistent
+  spec:
+    ports:
+    - name: 5432-tcp
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      deployment: postgresql-persistent
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}
