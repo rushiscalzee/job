@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: 
+spec:
+  limits:
+  - default:
+      memory: 
+      cpu: 
+    defaultRequest:
+      memory: 
+      cpu: 
+    type: Container
