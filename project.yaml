@@ -30,19 +30,6 @@ objects:
     kind: User
     name: ${PROJECT_ADMIN_USER}
 - apiVersion: v1
-  kind: LimitRange
-  metadata:
-    name: 
-  spec:
-    limits:
-    - default:
-        memory: 
-        cpu: 
-      defaultRequest:
-        memory: 
-        cpu: 
-      type: Container
-- apiVersion: v1
   kind: ResourceQuota
   metadata:
     name: project-quota
